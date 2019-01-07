@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>בול</title>
+<link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.css" media="screen">
+</head>
+<body>
+  <div class="card border-secondary mb-3" style="max-width: 10rem;">
+  <div class="card-header">נחשי מספר</div>
+  <div class="card-body">
+    
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title" onclick="clickDigit(1)">1</button>
+
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title" onclick="clickDigit(2)">2</button>
+
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title" onclick="clickDigit(3)">3</button>
+  </br>
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title" onclick="clickDigit(4)">4</button>
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title" onclick="clickDigit(5)">5</button>
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title" onclick="clickDigit(6)">6</button></br>
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title"onclick="clickDigit(7)">7</button>
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title"onclick="clickDigit(8)">8</button>
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title" onclick="clickDigit(9)">9</button></br>
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title">#</button>
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title"onclick="clickDigit(0)">0</button>
+   <button type="button" class="btn btn-secondary" title="" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="Popover Title">#</button>
+
+  </div>
+  </div>
+
+  <iframe style="visibility:hidden; position: absolute;" width="560" height="315" src="https://www.youtube.com/embed/ZuEWKIBkMwc?start=56&autoplay=1" frameborder="0" allow="accelerometer; autoplay;allow='autoplay'; encrypted-media; gyroscope; picture-in-picture" allowfullscreen id=bimba>
+  </iframe>
+  
+  <ul class="list-group" id="list-guesses">
+  <li class="list-group-item" id="guess-item-0"></li>
+</ul>
+</body>
+
+<script>
+
+
+  bool = "🎯"
+  hit = "💘"
+ 
+  for (s = new Set(); s.size < 4; s.add(Math.floor(Math.random() * 10))) {  }
+  var secretNumber = Array.from(s)
+
+
+  console.log(secretNumber)
+  var i = 0;
+  var currentGuess = []
+
+  function clickDigit(n) {
+    if (currentGuess.indexOf(n) < 0) {        
+      currentGuess.push(n)
+      document.getElementById("guess-item-" + i).innerHTML = currentGuess.join("-")
+      
+      if (currentGuess.length >= 4) {
+        checkGuess()
+        nextGuess() 
+      }
+    }
+  }  
+
+  function checkGuess() {
+    bools = 0
+    hits  = 0
+    for (digit = 0; digit < 4; digit++) {
+      if (secretNumber[digit] === currentGuess[digit]) {
+        bools ++
+      } else {
+        if (secretNumber.indexOf(currentGuess[digit]) >= 0) {
+          hits ++
+        }
+      }
+    }
+
+    if (bools >= 4) {
+      document.getElementById("bimba").style.visibility = 'visible'
+    } 
+    document.getElementById("guess-item-" + i).innerHTML = currentGuess.join("-") + "  " + bool.repeat(bools) + "   " + hit.repeat(hits)
+  }
+
+  function nextGuess() {
+    i++
+    var newItem = document.createElement("LI")
+    newItem.classList.add("list-group-item")
+    newItem.id = "guess-item-" + i
+    document.getElementById("list-guesses").appendChild(newItem);
+    currentGuess = []
+  }
+
+</script>
+</html>
+
